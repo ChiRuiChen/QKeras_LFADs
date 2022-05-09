@@ -175,7 +175,6 @@ class LFADS(ModelLoader, tf.keras.Model):
         if not self.built:
             assert all([f_i == i_i for f_i, i_i in zip(
                 list(log_f.shape), list(inputs.shape))])
-
         return log_f, z
 
     @tf.function
@@ -193,8 +192,9 @@ class LFADS(ModelLoader, tf.keras.Model):
             logvar = tf.zeros_like(mean) + tf.math.log(self.encoded_var_min)
 
         #g0 = self.sampling(
-        #    tf.stack([mean, logvar], axis=-1), training=training)
+         #   tf.stack([mean, logvar], axis=-1), training=training)
         g0 = mean
+        tf.print("no sampling")
         return g0, mean, logvar
 
     def compile(self, optimizer, loss_weights, *args, **kwargs):
